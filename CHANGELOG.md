@@ -1,3 +1,8 @@
+## [0.1.0+2] - 2020-05-15
+
+* Now using `AnimatedBuilder`.
+* Performance and code quality improvements.
+
 ## [0.1.0+1] - 2020-03-06
 
 * Updated the plugin description to better fit pub.dev requirements.

@@ -67,25 +67,30 @@ abstract class DayNightSwitcherBaseWidget extends StatefulWidget {
 
 /// The base state for every day / night switch widget.
 abstract class DayNightSwitcherBaseState<T extends DayNightSwitcherBaseWidget> extends State<T> with TickerProviderStateMixin {
-  /// The animation progress.
-  double progress;
-
   /// The animation controller.
-  AnimationController controller;
+  AnimationController _controller;
 
   /// The animation instance.
-  Animation<double> animation;
+  Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
-    progress = widget.isDarkModeEnabled ? 1.0 : 0.0;
+
+    _controller = AnimationController(duration: const Duration(milliseconds: 200), vsync: this);
+    _controller.value = widget.isDarkModeEnabled ? 1.0 : 0.0;
+    _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
+    _animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed || status == AnimationStatus.dismissed) {
+        widget.onStateChanged(_isDarkModeEnabled);
+      }
+    });
   }
 
   @override
   void didUpdateWidget(T oldWidget) {
-    if(widget.isDarkModeEnabled && progress == 0 || !widget.isDarkModeEnabled && progress == 1) {
-      onTap();
+    if (widget.isDarkModeEnabled != _isDarkModeEnabled) {
+      _onTap();
     }
 
     super.didUpdateWidget(oldWidget);
@@ -98,9 +103,13 @@ abstract class DayNightSwitcherBaseState<T extends DayNightSwitcherBaseWidget> e
           height: widget.height,
           width: widget.width,
           child: GestureDetector(
-            onTap: onTap,
-            child: CustomPaint(
-              painter: createCustomPainter(context),
+            onTap: _onTap,
+            child: AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) => CustomPaint(
+                size: Size(widget.width, widget.height),
+                painter: createCustomPainter(context, _animation.value),
+              ),
             ),
           ),
         ),
@@ -108,29 +117,22 @@ abstract class DayNightSwitcherBaseState<T extends DayNightSwitcherBaseWidget> e
 
   @override
   void dispose() {
-    controller?.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
   /// Creates the corresponding custom painter.
-  CustomPainter createCustomPainter(BuildContext context);
+  CustomPainter createCustomPainter(BuildContext context, double progress);
+
+  /// Returns whether dark mode is enabled.
+  bool get _isDarkModeEnabled => _animation.value == 1.0;
 
   /// Triggered when the widget has been tapped.
-  void onTap() {
-    controller = AnimationController(duration: const Duration(milliseconds: 200), vsync: this);
-    animation = Tween(begin: progress, end: progress > 0.0 ? 0.0 : 1.0).animate(controller)
-      ..addListener(() {
-        if (mounted) {
-          setState(() => progress = animation.value);
-        }
-      });
-
-    bool enableDarkMode = progress == 0.0;
-    controller.addStatusListener((status) async {
-      if (status == AnimationStatus.completed) {
-        widget.onStateChanged(enableDarkMode);
-      }
-    });
-    controller.forward();
+  void _onTap() {
+    if (_isDarkModeEnabled) {
+      _controller.reverse();
+    } else {
+      _controller.forward();
+    }
   }
 }

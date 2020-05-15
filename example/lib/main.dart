@@ -81,7 +81,7 @@ class _AppTheme {
         primaryColor: primaryColor,
         scaffoldBackgroundColor: scaffoldBackgroundColor,
         textTheme: TextTheme(
-          body1: TextStyle(color: textColor),
+          bodyText2: TextStyle(color: textColor),
         ),
       );
 

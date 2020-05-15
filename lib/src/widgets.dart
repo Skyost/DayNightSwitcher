@@ -1,5 +1,6 @@
+import 'dart:ui' show lerpDouble;
+
 import 'package:day_night_switcher/src/base.dart';
-import 'package:day_night_switcher/src/utils.dart';
 import 'package:flutter/material.dart';
 
 /// A simple day / night switch widget.
@@ -37,7 +38,7 @@ class DayNightSwitcher extends DayNightSwitcherBaseWidget {
 /// The day night switch state.
 class _DayNightSwitcherState extends DayNightSwitcherBaseState<DayNightSwitcher> {
   @override
-  CustomPainter createCustomPainter(BuildContext context) => _DayNightPainter(
+  CustomPainter createCustomPainter(BuildContext context, double progress) => _DayNightPainter(
         widget: widget,
         progress: progress,
       );
@@ -79,7 +80,7 @@ class DayNightSwitcherIcon extends DayNightSwitcherBaseWidget {
 /// The day night switch state.
 class _DayNightSwitcherIconState extends DayNightSwitcherBaseState<DayNightSwitcherIcon> {
   @override
-  CustomPainter createCustomPainter(BuildContext context) => _DayNightIconPainter(
+  CustomPainter createCustomPainter(BuildContext context, double progress) => _DayNightIconPainter(
         widget: widget,
         progress: progress,
       );
@@ -157,9 +158,9 @@ class _DayNightPainter extends CustomPainter {
 
     canvas.drawOval(
       Rect.fromLTWH(
-        (sunLeft + padding - (size.width / sunLeftDivisor)).lerp(padding + (size.width / moonLeftDivisor), progress),
+        lerpDouble(sunLeft + padding - (size.width / sunLeftDivisor), padding + (size.width / moonLeftDivisor), progress),
         padding + size.height / topDivisor,
-        width.lerp(height, progress),
+        lerpDouble(width, height, progress),
         height,
       ),
       Paint()..color = widget.cloudsColor,
@@ -170,7 +171,7 @@ class _DayNightPainter extends CustomPainter {
   void drawStar(Canvas canvas, Size size, [double topDivisor = 1.4, double leftDivisor = 5, double radius]) {
     canvas.drawCircle(
       Offset(size.width / leftDivisor, size.height / topDivisor),
-      0.0.lerp(radius ?? size.height / 10, progress),
+      lerpDouble(0.0, radius ?? size.height / 10, progress),
       Paint()..color = widget.starsColor,
     );
   }
