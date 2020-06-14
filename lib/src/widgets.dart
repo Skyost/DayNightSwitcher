@@ -8,7 +8,8 @@ class DayNightSwitcher extends DayNightSwitcherBaseWidget {
   /// Creates a new day night switch icon state.
   const DayNightSwitcher({
     @required bool isDarkModeEnabled,
-    @required StateChangedCallback onStateChanged,
+    @required SwitcherStateChangedCallback onStateChanged,
+    VoidCallback onLongPress,
     Color dayBackgroundColor,
     Color nightBackgroundColor,
     Color sunColor,
@@ -19,6 +20,7 @@ class DayNightSwitcher extends DayNightSwitcherBaseWidget {
   }) : super(
           isDarkModeEnabled: isDarkModeEnabled,
           onStateChanged: onStateChanged,
+          onLongPress: onLongPress,
           dayBackgroundColor: dayBackgroundColor,
           nightBackgroundColor: nightBackgroundColor,
           sunColor: sunColor,
@@ -33,6 +35,35 @@ class DayNightSwitcher extends DayNightSwitcherBaseWidget {
 
   @override
   double get width => 100;
+
+  @override
+  EdgeInsets get padding => const EdgeInsets.symmetric(vertical: 10);
+
+  @override
+  DayNightSwitcher copyWith({
+    bool isDarkModeEnabled,
+    SwitcherStateChangedCallback onStateChanged,
+    VoidCallback onLongPress,
+    Color dayBackgroundColor,
+    Color nightBackgroundColor,
+    Color sunColor,
+    Color moonColor,
+    Color starsColor,
+    Color cloudsColor,
+    Color cratersColor,
+  }) =>
+      DayNightSwitcher(
+        isDarkModeEnabled: isDarkModeEnabled ?? this.isDarkModeEnabled,
+        onStateChanged: onStateChanged ?? this.onStateChanged,
+        onLongPress: onLongPress ?? this.onLongPress,
+        dayBackgroundColor: dayBackgroundColor ?? this.dayBackgroundColor,
+        nightBackgroundColor: nightBackgroundColor ?? this.nightBackgroundColor,
+        sunColor: sunColor ?? this.sunColor,
+        moonColor: moonColor ?? this.moonColor,
+        starsColor: starsColor ?? this.starsColor,
+        cloudsColor: cloudsColor ?? this.cloudsColor,
+        cratersColor: cratersColor ?? this.cratersColor,
+      );
 }
 
 /// The day night switch state.
@@ -49,7 +80,8 @@ class DayNightSwitcherIcon extends DayNightSwitcherBaseWidget {
   /// Creates a new day night switch icon state.
   const DayNightSwitcherIcon({
     @required bool isDarkModeEnabled,
-    @required StateChangedCallback onStateChanged,
+    @required SwitcherStateChangedCallback onStateChanged,
+    VoidCallback onLongPress,
     Color dayBackgroundColor,
     Color nightBackgroundColor,
     Color sunColor,
@@ -58,9 +90,9 @@ class DayNightSwitcherIcon extends DayNightSwitcherBaseWidget {
     Color cloudsColor,
     Color cratersColor,
   }) : super(
-          padding: const EdgeInsets.symmetric(vertical: 12),
           isDarkModeEnabled: isDarkModeEnabled,
           onStateChanged: onStateChanged,
+          onLongPress: onLongPress,
           dayBackgroundColor: dayBackgroundColor,
           nightBackgroundColor: nightBackgroundColor,
           sunColor: sunColor,
@@ -75,6 +107,35 @@ class DayNightSwitcherIcon extends DayNightSwitcherBaseWidget {
 
   @override
   double get width => 36;
+
+  @override
+  EdgeInsets get padding => const EdgeInsets.symmetric(vertical: 12);
+
+  @override
+  DayNightSwitcherIcon copyWith({
+    bool isDarkModeEnabled,
+    SwitcherStateChangedCallback onStateChanged,
+    VoidCallback onLongPress,
+    Color dayBackgroundColor,
+    Color nightBackgroundColor,
+    Color sunColor,
+    Color moonColor,
+    Color starsColor,
+    Color cloudsColor,
+    Color cratersColor,
+  }) =>
+      DayNightSwitcherIcon(
+        isDarkModeEnabled: isDarkModeEnabled ?? this.isDarkModeEnabled,
+        onStateChanged: onStateChanged ?? this.onStateChanged,
+        onLongPress: onLongPress ?? this.onLongPress,
+        dayBackgroundColor: dayBackgroundColor ?? this.dayBackgroundColor,
+        nightBackgroundColor: nightBackgroundColor ?? this.nightBackgroundColor,
+        sunColor: sunColor ?? this.sunColor,
+        moonColor: moonColor ?? this.moonColor,
+        starsColor: starsColor ?? this.starsColor,
+        cloudsColor: cloudsColor ?? this.cloudsColor,
+        cratersColor: cratersColor ?? this.cratersColor,
+      );
 }
 
 /// The day night switch state.

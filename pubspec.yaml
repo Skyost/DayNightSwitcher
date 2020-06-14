@@ -1,6 +1,6 @@
 name: day_night_switcher
 description: A simple day / night switcher widget made in pure Dart. Allows to quickly show a beautiful dark mode switcher widget to your users.
-version: 0.1.0+2
+version: 0.1.1
 homepage: https://github.com/Skyost/DayNightSwitcher
 
 environment:

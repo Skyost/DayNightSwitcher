@@ -1,3 +1,9 @@
+## [0.1.1] - 2020-06-14
+
+* Added a `onLongPress` callback.
+* Now sending feedback for presses and long presses.
+* Added a `copyWith` method on both widgets.
+
 ## [0.1.0+2] - 2020-05-15
 
 * Now using `AnimatedBuilder`.

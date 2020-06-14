@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 /// Should be called when a widget state has changed.
-typedef StateChangedCallback = Function(bool isDarkModeEnabled);
+typedef SwitcherStateChangedCallback = Function(bool isDarkModeEnabled);
 
 /// The base widget for every day / night switch widget.
 abstract class DayNightSwitcherBaseWidget extends StatefulWidget {
-  /// The widget outer padding.
-  final EdgeInsetsGeometry padding;
-
   /// Whether the dark mode is currently enabled.
   final bool isDarkModeEnabled;
 
   /// Called when the state has changed.
-  final StateChangedCallback onStateChanged;
+  final SwitcherStateChangedCallback onStateChanged;
+
+  /// Triggered when the widget has been long pressed.
+  final VoidCallback onLongPress;
 
   /// The day background color.
   final Color dayBackgroundColor;
@@ -37,9 +37,9 @@ abstract class DayNightSwitcherBaseWidget extends StatefulWidget {
 
   /// Creates a new day / night switcher base widget instance.
   const DayNightSwitcherBaseWidget({
-    this.padding = const EdgeInsets.symmetric(vertical: 10),
     @required bool isDarkModeEnabled,
     @required this.onStateChanged,
+    this.onLongPress,
     Color dayBackgroundColor,
     Color nightBackgroundColor,
     Color sunColor,
@@ -47,8 +47,7 @@ abstract class DayNightSwitcherBaseWidget extends StatefulWidget {
     Color starsColor,
     Color cloudsColor,
     Color cratersColor,
-  })  : assert(padding != null),
-        assert(onStateChanged != null),
+  })  : assert(onStateChanged != null),
         this.isDarkModeEnabled = isDarkModeEnabled ?? false,
         dayBackgroundColor = dayBackgroundColor ?? const Color(0xFF3498DB),
         nightBackgroundColor = nightBackgroundColor ?? const Color(0xFF192734),
@@ -63,6 +62,23 @@ abstract class DayNightSwitcherBaseWidget extends StatefulWidget {
 
   /// The widget width.
   double get width;
+
+  /// The outer padding.
+  EdgeInsets get padding;
+
+  /// Allows to have a copy of this instance with the given parameters.
+  DayNightSwitcherBaseWidget copyWith({
+    bool isDarkModeEnabled,
+    SwitcherStateChangedCallback onStateChanged,
+    VoidCallback onLongPress,
+    Color dayBackgroundColor,
+    Color nightBackgroundColor,
+    Color sunColor,
+    Color moonColor,
+    Color starsColor,
+    Color cloudsColor,
+    Color cratersColor,
+  });
 }
 
 /// The base state for every day / night switch widget.
@@ -90,7 +106,7 @@ abstract class DayNightSwitcherBaseState<T extends DayNightSwitcherBaseWidget> e
   @override
   void didUpdateWidget(T oldWidget) {
     if (widget.isDarkModeEnabled != _isDarkModeEnabled) {
-      _onTap();
+      _onTap(sendFeedback: false);
     }
 
     super.didUpdateWidget(oldWidget);
@@ -103,6 +119,7 @@ abstract class DayNightSwitcherBaseState<T extends DayNightSwitcherBaseWidget> e
           height: widget.height,
           width: widget.width,
           child: GestureDetector(
+            onLongPress: _onLongPress,
             onTap: _onTap,
             child: AnimatedBuilder(
               animation: _animation,
@@ -127,8 +144,20 @@ abstract class DayNightSwitcherBaseState<T extends DayNightSwitcherBaseWidget> e
   /// Returns whether dark mode is enabled.
   bool get _isDarkModeEnabled => _animation.value == 1.0;
 
+  /// Triggered when the widget has been long pressed.
+  void _onLongPress() {
+    if (widget.onLongPress != null) {
+      Feedback.forLongPress(context);
+      widget.onLongPress();
+    }
+  }
+
   /// Triggered when the widget has been tapped.
-  void _onTap() {
+  void _onTap({bool sendFeedback = true}) {
+    if (sendFeedback) {
+      Feedback.forTap(context);
+    }
+
     if (_isDarkModeEnabled) {
       _controller.reverse();
     } else {

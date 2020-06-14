@@ -19,7 +19,12 @@ class _DayNightSwitcherExampleState extends State<_DayNightSwitcherExample> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Day / night switcher example',
-      theme: _AppTheme.of(isDarkModeEnabled).themeData,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark().copyWith(
+        appBarTheme: AppBarTheme(color: const Color(0xFF253341)),
+        scaffoldBackgroundColor: const Color(0xFF15202B),
+      ),
+      themeMode: isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light,
       home: Scaffold(
         appBar: AppBar(title: Text('Day / night switcher example')),
         body: SizedBox.expand(
@@ -56,52 +61,4 @@ class _DayNightSwitcherExampleState extends State<_DayNightSwitcherExample> {
       this.isDarkModeEnabled = isDarkModeEnabled;
     });
   }
-}
-
-/// A basic app theme class.
-class _AppTheme {
-  /// The primary color.
-  final Color primaryColor;
-
-  /// The scaffold background color.
-  final Color scaffoldBackgroundColor;
-
-  /// The text color.
-  final Color textColor;
-
-  /// Creates a new app theme instance.
-  const _AppTheme({
-    @required this.primaryColor,
-    this.scaffoldBackgroundColor,
-    this.textColor,
-  });
-
-  /// Creates a Flutter theme data.
-  ThemeData get themeData => ThemeData(
-        primaryColor: primaryColor,
-        scaffoldBackgroundColor: scaffoldBackgroundColor,
-        textTheme: TextTheme(
-          bodyText2: TextStyle(color: textColor),
-        ),
-      );
-
-  /// Returns the corresponding app theme.
-  static _AppTheme of(bool isDarkModeEnabled) => isDarkModeEnabled ? _DarkAppTheme() : _LightAppTheme();
-}
-
-/// The light app theme.
-class _LightAppTheme extends _AppTheme {
-  /// Creates a new light app theme instance.
-  _LightAppTheme() : super(primaryColor: Colors.blue);
-}
-
-/// The dark app theme.
-class _DarkAppTheme extends _AppTheme {
-  /// Creates a new dark app theme instance.
-  _DarkAppTheme()
-      : super(
-          primaryColor: const Color(0xFF253341),
-          scaffoldBackgroundColor: const Color(0xFF15202B),
-          textColor: Colors.white70,
-        );
 }
