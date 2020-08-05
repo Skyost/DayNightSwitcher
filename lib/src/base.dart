@@ -82,7 +82,8 @@ abstract class DayNightSwitcherBaseWidget extends StatefulWidget {
 }
 
 /// The base state for every day / night switch widget.
-abstract class DayNightSwitcherBaseState<T extends DayNightSwitcherBaseWidget> extends State<T> with TickerProviderStateMixin {
+abstract class DayNightSwitcherBaseState<T extends DayNightSwitcherBaseWidget>
+    extends State<T> with TickerProviderStateMixin {
   /// The animation controller.
   AnimationController _controller;
 
@@ -93,11 +94,13 @@ abstract class DayNightSwitcherBaseState<T extends DayNightSwitcherBaseWidget> e
   void initState() {
     super.initState();
 
-    _controller = AnimationController(duration: const Duration(milliseconds: 200), vsync: this);
+    _controller = AnimationController(
+        duration: const Duration(milliseconds: 200), vsync: this);
     _controller.value = widget.isDarkModeEnabled ? 1.0 : 0.0;
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
     _animation.addStatusListener((status) {
-      if (status == AnimationStatus.completed || status == AnimationStatus.dismissed) {
+      if (status == AnimationStatus.completed ||
+          status == AnimationStatus.dismissed) {
         widget.onStateChanged(_isDarkModeEnabled);
       }
     });

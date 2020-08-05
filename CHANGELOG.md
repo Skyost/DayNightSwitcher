@@ -1,3 +1,7 @@
+## [0.1.1+1] - 2020-08-05
+
+* Updated README and ran `dartfmt` on the _lib_ folder.
+
 ## [0.1.1] - 2020-06-14
 
 * Added a `onLongPress` callback.
