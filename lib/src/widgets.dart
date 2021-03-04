@@ -7,16 +7,16 @@ import 'package:flutter/material.dart';
 class DayNightSwitcher extends DayNightSwitcherBaseWidget {
   /// Creates a new day night switch icon state.
   const DayNightSwitcher({
-    @required bool isDarkModeEnabled,
-    @required SwitcherStateChangedCallback onStateChanged,
-    VoidCallback onLongPress,
-    Color dayBackgroundColor,
-    Color nightBackgroundColor,
-    Color sunColor,
-    Color moonColor,
-    Color starsColor,
-    Color cloudsColor,
-    Color cratersColor,
+    required bool isDarkModeEnabled,
+    required SwitcherStateChangedCallback onStateChanged,
+    VoidCallback? onLongPress,
+    Color? dayBackgroundColor,
+    Color? nightBackgroundColor,
+    Color? sunColor,
+    Color? moonColor,
+    Color? starsColor,
+    Color? cloudsColor,
+    Color? cratersColor,
   }) : super(
           isDarkModeEnabled: isDarkModeEnabled,
           onStateChanged: onStateChanged,
@@ -41,16 +41,16 @@ class DayNightSwitcher extends DayNightSwitcherBaseWidget {
 
   @override
   DayNightSwitcher copyWith({
-    bool isDarkModeEnabled,
-    SwitcherStateChangedCallback onStateChanged,
-    VoidCallback onLongPress,
-    Color dayBackgroundColor,
-    Color nightBackgroundColor,
-    Color sunColor,
-    Color moonColor,
-    Color starsColor,
-    Color cloudsColor,
-    Color cratersColor,
+    bool? isDarkModeEnabled,
+    SwitcherStateChangedCallback? onStateChanged,
+    VoidCallback? onLongPress,
+    Color? dayBackgroundColor,
+    Color? nightBackgroundColor,
+    Color? sunColor,
+    Color? moonColor,
+    Color? starsColor,
+    Color? cloudsColor,
+    Color? cratersColor,
   }) =>
       DayNightSwitcher(
         isDarkModeEnabled: isDarkModeEnabled ?? this.isDarkModeEnabled,
@@ -81,16 +81,16 @@ class _DayNightSwitcherState
 class DayNightSwitcherIcon extends DayNightSwitcherBaseWidget {
   /// Creates a new day night switch icon state.
   const DayNightSwitcherIcon({
-    @required bool isDarkModeEnabled,
-    @required SwitcherStateChangedCallback onStateChanged,
-    VoidCallback onLongPress,
-    Color dayBackgroundColor,
-    Color nightBackgroundColor,
-    Color sunColor,
-    Color moonColor,
-    Color starsColor,
-    Color cloudsColor,
-    Color cratersColor,
+    required bool isDarkModeEnabled,
+    required SwitcherStateChangedCallback onStateChanged,
+    VoidCallback? onLongPress,
+    Color? dayBackgroundColor,
+    Color? nightBackgroundColor,
+    Color? sunColor,
+    Color? moonColor,
+    Color? starsColor,
+    Color? cloudsColor,
+    Color? cratersColor,
   }) : super(
           isDarkModeEnabled: isDarkModeEnabled,
           onStateChanged: onStateChanged,
@@ -115,16 +115,16 @@ class DayNightSwitcherIcon extends DayNightSwitcherBaseWidget {
 
   @override
   DayNightSwitcherIcon copyWith({
-    bool isDarkModeEnabled,
-    SwitcherStateChangedCallback onStateChanged,
-    VoidCallback onLongPress,
-    Color dayBackgroundColor,
-    Color nightBackgroundColor,
-    Color sunColor,
-    Color moonColor,
-    Color starsColor,
-    Color cloudsColor,
-    Color cratersColor,
+    bool? isDarkModeEnabled,
+    SwitcherStateChangedCallback? onStateChanged,
+    VoidCallback? onLongPress,
+    Color? dayBackgroundColor,
+    Color? nightBackgroundColor,
+    Color? sunColor,
+    Color? moonColor,
+    Color? starsColor,
+    Color? cloudsColor,
+    Color? cratersColor,
   }) =>
       DayNightSwitcherIcon(
         isDarkModeEnabled: isDarkModeEnabled ?? this.isDarkModeEnabled,
@@ -164,9 +164,9 @@ class _DayNightPainter extends CustomPainter {
 
   /// Creates a new day / night painter instance.
   const _DayNightPainter({
-    @required this.widget,
+    required this.widget,
     this.padding = 5,
-    @required this.progress,
+    required this.progress,
   });
 
   @override
@@ -178,7 +178,10 @@ class _DayNightPainter extends CustomPainter {
 
     double top = radius;
     Color backgroundColor = Color.lerp(
-        widget.dayBackgroundColor, widget.nightBackgroundColor, progress);
+      widget.dayBackgroundColor,
+      widget.nightBackgroundColor,
+      progress,
+    )!;
 
     Rect background = Rect.fromLTWH(0, 0, size.width, size.height);
     RRect shape = RRect.fromRectAndRadius(background, Radius.circular(radius));
@@ -195,7 +198,7 @@ class _DayNightPainter extends CustomPainter {
     canvas.drawCircle(
       Offset(left, top),
       radius - padding,
-      Paint()..color = Color.lerp(widget.sunColor, widget.moonColor, progress),
+      Paint()..color = Color.lerp(widget.sunColor, widget.moonColor, progress)!,
     );
 
     drawCloud(canvas, size, sunLeft, 4, 4, 2);
@@ -220,19 +223,26 @@ class _DayNightPainter extends CustomPainter {
       progress != oldDelegate.progress || padding != oldDelegate.padding;
 
   /// Draws a cloud.
-  void drawCloud(Canvas canvas, Size size, double sunLeft,
-      [double topDivisor = 10,
-      double moonLeftDivisor = 8,
-      double sunLeftDivisor = 1.8]) {
+  void drawCloud(
+    Canvas canvas,
+    Size size,
+    double sunLeft, [
+    double topDivisor = 10,
+    double moonLeftDivisor = 8,
+    double sunLeftDivisor = 1.8,
+  ]) {
     double height = size.height / 10;
     double width = size.width / 2.5;
 
     canvas.drawOval(
       Rect.fromLTWH(
-        lerpDouble(sunLeft + padding - (size.width / sunLeftDivisor),
-            padding + (size.width / moonLeftDivisor), progress),
+        lerpDouble(
+          sunLeft + padding - (size.width / sunLeftDivisor),
+          padding + (size.width / moonLeftDivisor),
+          progress,
+        )!,
         padding + size.height / topDivisor,
-        lerpDouble(width, height, progress),
+        lerpDouble(width, height, progress)!,
         height,
       ),
       Paint()..color = widget.cloudsColor,
@@ -240,11 +250,16 @@ class _DayNightPainter extends CustomPainter {
   }
 
   /// Draws a star.
-  void drawStar(Canvas canvas, Size size,
-      [double topDivisor = 1.4, double leftDivisor = 5, double radius]) {
+  void drawStar(
+    Canvas canvas,
+    Size size, [
+    double topDivisor = 1.4,
+    double leftDivisor = 5,
+    double? radius,
+  ]) {
     canvas.drawCircle(
       Offset(size.width / leftDivisor, size.height / topDivisor),
-      lerpDouble(0.0, radius ?? size.height / 10, progress),
+      lerpDouble(0.0, radius ?? size.height / 10, progress)!,
       Paint()..color = widget.starsColor,
     );
   }
@@ -256,7 +271,8 @@ class _DayNightPainter extends CustomPainter {
       Offset(left + radius / leftDivisor, padding + radius / topDivisor),
       radius / 5,
       Paint()
-        ..color = Color.lerp(Colors.transparent, widget.cratersColor, progress),
+        ..color =
+            Color.lerp(Colors.transparent, widget.cratersColor, progress)!,
     );
   }
 }
@@ -273,9 +289,9 @@ class _DayNightIconPainter extends CustomPainter {
 
   /// Creates a new day / night icon painter instance.
   const _DayNightIconPainter({
-    @required this.widget,
+    required this.widget,
     this.padding = 5,
-    @required this.progress,
+    required this.progress,
   });
 
   @override
@@ -283,7 +299,10 @@ class _DayNightIconPainter extends CustomPainter {
     double radius = size.height / 2;
     Offset center = Offset(size.width / 2, radius);
     Color backgroundColor = Color.lerp(
-        widget.dayBackgroundColor, widget.nightBackgroundColor, progress);
+      widget.dayBackgroundColor,
+      widget.nightBackgroundColor,
+      progress,
+    )!;
 
     canvas.clipRRect(RRect.fromRectAndRadius(
         Rect.fromCircle(center: center, radius: radius),
@@ -298,7 +317,7 @@ class _DayNightIconPainter extends CustomPainter {
     canvas.drawCircle(
       Offset((size.width / 2), radius),
       radius - padding,
-      Paint()..color = Color.lerp(widget.sunColor, widget.moonColor, progress),
+      Paint()..color = Color.lerp(widget.sunColor, widget.moonColor, progress)!,
     );
 
     drawCrater(canvas, size);
@@ -315,11 +334,14 @@ class _DayNightIconPainter extends CustomPainter {
   }
 
   /// Draws a cloud.
-  void drawCloud(Canvas canvas, Size size,
-      [double leftDivisor = 7,
-      double topDivisor = 2,
-      double heightDivisor = 10,
-      double widthDivisor = 2]) {
+  void drawCloud(
+    Canvas canvas,
+    Size size, [
+    double leftDivisor = 7,
+    double topDivisor = 2,
+    double heightDivisor = 10,
+    double widthDivisor = 2,
+  ]) {
     canvas.drawOval(
       Rect.fromLTWH(
         size.width / leftDivisor,
@@ -328,20 +350,24 @@ class _DayNightIconPainter extends CustomPainter {
         size.height / heightDivisor,
       ),
       Paint()
-        ..color = Color.lerp(widget.cloudsColor, Colors.transparent, progress),
+        ..color = Color.lerp(widget.cloudsColor, Colors.transparent, progress)!,
     );
   }
 
   /// Draws a moon crater.
-  void drawCrater(Canvas canvas, Size size,
-      [double radiusDivisor = 8,
-      double heightDivisor = 2.5,
-      double widthDivisor = 3]) {
+  void drawCrater(
+    Canvas canvas,
+    Size size, [
+    double radiusDivisor = 8,
+    double heightDivisor = 2.5,
+    double widthDivisor = 3,
+  ]) {
     canvas.drawCircle(
       Offset(size.width / widthDivisor, size.height / heightDivisor),
       size.height / radiusDivisor,
       Paint()
-        ..color = Color.lerp(Colors.transparent, widget.cratersColor, progress),
+        ..color =
+            Color.lerp(Colors.transparent, widget.cratersColor, progress)!,
     );
   }
 

@@ -1,4 +1,4 @@
-package com.example.example
+package eu.skyost.day_night_switcher.example
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
