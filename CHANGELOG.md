@@ -1,6 +1,6 @@
-## [0.2.0] - 2021-xx-xx
+## [0.2.0] - 2021-05-03
 
-* Migrate to null-safety.
+* Migrated to null-safety.
 
 ## [0.1.1+1] - 2020-08-05
 

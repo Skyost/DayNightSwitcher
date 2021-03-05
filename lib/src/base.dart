@@ -116,24 +116,22 @@ abstract class DayNightSwitcherBaseState<T extends DayNightSwitcherBaseWidget>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: widget.padding,
-      height: widget.height,
-      width: widget.width,
-      child: GestureDetector(
-        onTap: _onTap,
-        onLongPress: _onLongPress,
-        child: AnimatedBuilder(
-          animation: _animation,
-          builder: (context, child) => CustomPaint(
-            size: Size(widget.width, widget.height),
-            painter: createCustomPainter(context, _animation.value),
+  Widget build(BuildContext context) => Container(
+        padding: widget.padding,
+        height: widget.height,
+        width: widget.width,
+        child: GestureDetector(
+          onTap: _onTap,
+          onLongPress: _onLongPress,
+          child: AnimatedBuilder(
+            animation: _animation,
+            builder: (context, child) => CustomPaint(
+              size: Size(widget.width, widget.height),
+              painter: createCustomPainter(context, _animation.value),
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 
   @override
   void dispose() {
