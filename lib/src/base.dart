@@ -12,7 +12,7 @@ abstract class DayNightSwitcherBaseWidget extends StatefulWidget {
   final SwitcherStateChangedCallback onStateChanged;
 
   /// Triggered when the widget has been long pressed.
-  final VoidCallback onLongPress;
+  final VoidCallback? onLongPress;
 
   /// The day background color.
   final Color dayBackgroundColor;
@@ -37,19 +37,17 @@ abstract class DayNightSwitcherBaseWidget extends StatefulWidget {
 
   /// Creates a new day / night switcher base widget instance.
   const DayNightSwitcherBaseWidget({
-    @required bool isDarkModeEnabled,
-    @required this.onStateChanged,
+    required this.isDarkModeEnabled,
+    required this.onStateChanged,
     this.onLongPress,
-    Color dayBackgroundColor,
-    Color nightBackgroundColor,
-    Color sunColor,
-    Color moonColor,
-    Color starsColor,
-    Color cloudsColor,
-    Color cratersColor,
-  })  : assert(onStateChanged != null),
-        this.isDarkModeEnabled = isDarkModeEnabled ?? false,
-        dayBackgroundColor = dayBackgroundColor ?? const Color(0xFF3498DB),
+    Color? dayBackgroundColor,
+    Color? nightBackgroundColor,
+    Color? sunColor,
+    Color? moonColor,
+    Color? starsColor,
+    Color? cloudsColor,
+    Color? cratersColor,
+  })  : dayBackgroundColor = dayBackgroundColor ?? const Color(0xFF3498DB),
         nightBackgroundColor = nightBackgroundColor ?? const Color(0xFF192734),
         sunColor = sunColor ?? const Color(0xFFFFCF96),
         moonColor = moonColor ?? const Color(0xFFFFE5B5),
@@ -85,17 +83,19 @@ abstract class DayNightSwitcherBaseWidget extends StatefulWidget {
 abstract class DayNightSwitcherBaseState<T extends DayNightSwitcherBaseWidget>
     extends State<T> with TickerProviderStateMixin {
   /// The animation controller.
-  AnimationController _controller;
+  late AnimationController _controller;
 
   /// The animation instance.
-  Animation<double> _animation;
+  late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
 
     _controller = AnimationController(
-        duration: const Duration(milliseconds: 200), vsync: this);
+      duration: const Duration(milliseconds: 200),
+      vsync: this,
+    );
     _controller.value = widget.isDarkModeEnabled ? 1.0 : 0.0;
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
     _animation.addStatusListener((status) {
@@ -116,28 +116,28 @@ abstract class DayNightSwitcherBaseState<T extends DayNightSwitcherBaseWidget>
   }
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: widget.padding,
-        child: SizedBox(
-          height: widget.height,
-          width: widget.width,
-          child: GestureDetector(
-            onLongPress: _onLongPress,
-            onTap: _onTap,
-            child: AnimatedBuilder(
-              animation: _animation,
-              builder: (context, child) => CustomPaint(
-                size: Size(widget.width, widget.height),
-                painter: createCustomPainter(context, _animation.value),
-              ),
-            ),
+  Widget build(BuildContext context) {
+    return Container(
+      padding: widget.padding,
+      height: widget.height,
+      width: widget.width,
+      child: GestureDetector(
+        onTap: _onTap,
+        onLongPress: _onLongPress,
+        child: AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) => CustomPaint(
+            size: Size(widget.width, widget.height),
+            painter: createCustomPainter(context, _animation.value),
           ),
         ),
-      );
+      ),
+    );
+  }
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -151,7 +151,7 @@ abstract class DayNightSwitcherBaseState<T extends DayNightSwitcherBaseWidget>
   void _onLongPress() {
     if (widget.onLongPress != null) {
       Feedback.forLongPress(context);
-      widget.onLongPress();
+      widget.onLongPress!();
     }
   }
 

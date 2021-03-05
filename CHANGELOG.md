@@ -1,3 +1,7 @@
+## [0.2.0] - 2021-xx-xx
+
+* Migrate to null-safety.
+
 ## [0.1.1+1] - 2020-08-05
 
 * Updated README and ran `dartfmt` on the _lib_ folder.
