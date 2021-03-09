@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="eu.skyost.day_night_switcher.example">
+    package="fr.skyost.day_night_switcher.example">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

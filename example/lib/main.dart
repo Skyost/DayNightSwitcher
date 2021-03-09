@@ -46,7 +46,9 @@ class _DayNightSwitcherExampleState extends State<_DayNightSwitcherExample> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 10),
-                child: Text('Dark mode is ' + (isDarkModeEnabled ? 'enabled' : 'disabled') + '.'),
+                child: Text('Dark mode is ' +
+                    (isDarkModeEnabled ? 'enabled' : 'disabled') +
+                    '.'),
               ),
             ],
           ),

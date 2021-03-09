@@ -18,17 +18,17 @@ class DayNightSwitcher extends DayNightSwitcherBaseWidget {
     Color? cloudsColor,
     Color? cratersColor,
   }) : super(
-    isDarkModeEnabled: isDarkModeEnabled,
-    onStateChanged: onStateChanged,
-    onLongPress: onLongPress,
-    dayBackgroundColor: dayBackgroundColor,
-    nightBackgroundColor: nightBackgroundColor,
-    sunColor: sunColor,
-    moonColor: moonColor,
-    starsColor: starsColor,
-    cloudsColor: cloudsColor,
-    cratersColor: cratersColor,
-  );
+          isDarkModeEnabled: isDarkModeEnabled,
+          onStateChanged: onStateChanged,
+          onLongPress: onLongPress,
+          dayBackgroundColor: dayBackgroundColor,
+          nightBackgroundColor: nightBackgroundColor,
+          sunColor: sunColor,
+          moonColor: moonColor,
+          starsColor: starsColor,
+          cloudsColor: cloudsColor,
+          cratersColor: cratersColor,
+        );
 
   @override
   State<StatefulWidget> createState() => _DayNightSwitcherState();
@@ -92,17 +92,17 @@ class DayNightSwitcherIcon extends DayNightSwitcherBaseWidget {
     Color? cloudsColor,
     Color? cratersColor,
   }) : super(
-    isDarkModeEnabled: isDarkModeEnabled,
-    onStateChanged: onStateChanged,
-    onLongPress: onLongPress,
-    dayBackgroundColor: dayBackgroundColor,
-    nightBackgroundColor: nightBackgroundColor,
-    sunColor: sunColor,
-    moonColor: moonColor,
-    starsColor: starsColor,
-    cloudsColor: cloudsColor,
-    cratersColor: cratersColor,
-  );
+          isDarkModeEnabled: isDarkModeEnabled,
+          onStateChanged: onStateChanged,
+          onLongPress: onLongPress,
+          dayBackgroundColor: dayBackgroundColor,
+          nightBackgroundColor: nightBackgroundColor,
+          sunColor: sunColor,
+          moonColor: moonColor,
+          starsColor: starsColor,
+          cloudsColor: cloudsColor,
+          cratersColor: cratersColor,
+        );
 
   @override
   State<StatefulWidget> createState() => _DayNightSwitcherIconState();
@@ -222,8 +222,8 @@ class _DayNightPainter extends CustomPainter {
   /// Draws a cloud.
   void drawCloud(Canvas canvas, Size size, double sunLeft,
       [double topDivisor = 10,
-        double moonLeftDivisor = 8,
-        double sunLeftDivisor = 1.8]) {
+      double moonLeftDivisor = 8,
+      double sunLeftDivisor = 1.8]) {
     double height = size.height / 10;
     double width = size.width / 2.5;
 
@@ -256,7 +256,8 @@ class _DayNightPainter extends CustomPainter {
       Offset(left + radius / leftDivisor, padding + radius / topDivisor),
       radius / 5,
       Paint()
-        ..color = Color.lerp(Colors.transparent, widget.cratersColor, progress)!,
+        ..color =
+            Color.lerp(Colors.transparent, widget.cratersColor, progress)!,
     );
   }
 }
@@ -317,9 +318,9 @@ class _DayNightIconPainter extends CustomPainter {
   /// Draws a cloud.
   void drawCloud(Canvas canvas, Size size,
       [double leftDivisor = 7,
-        double topDivisor = 2,
-        double heightDivisor = 10,
-        double widthDivisor = 2]) {
+      double topDivisor = 2,
+      double heightDivisor = 10,
+      double widthDivisor = 2]) {
     canvas.drawOval(
       Rect.fromLTWH(
         size.width / leftDivisor,
@@ -335,13 +336,14 @@ class _DayNightIconPainter extends CustomPainter {
   /// Draws a moon crater.
   void drawCrater(Canvas canvas, Size size,
       [double radiusDivisor = 8,
-        double heightDivisor = 2.5,
-        double widthDivisor = 3]) {
+      double heightDivisor = 2.5,
+      double widthDivisor = 3]) {
     canvas.drawCircle(
       Offset(size.width / widthDivisor, size.height / heightDivisor),
       size.height / radiusDivisor,
       Paint()
-        ..color = Color.lerp(Colors.transparent, widget.cratersColor, progress)!,
+        ..color =
+            Color.lerp(Colors.transparent, widget.cratersColor, progress)!,
     );
   }
 
