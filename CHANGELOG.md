@@ -1,3 +1,7 @@
+## [0.2.0+1] - 2021-09-03
+
+* Fixed a rendering bug.
+
 ## [0.2.0] - 2021-05-03
 
 * Migrated to null-safety.

@@ -37,7 +37,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "eu.skyost.day_night_switcher.example"
+        applicationId "fr.skyost.day_night_switcher.example"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()

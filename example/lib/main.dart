@@ -29,21 +29,24 @@ class _DayNightSwitcherExampleState extends State<_DayNightSwitcherExample> {
         appBar: AppBar(title: Text('Day / night switcher example')),
         body: SizedBox.expand(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               DayNightSwitcher(
                 isDarkModeEnabled: isDarkModeEnabled,
                 onStateChanged: onStateChanged,
               ),
-              SizedBox(height: 2),
-              DayNightSwitcherIcon(
-                isDarkModeEnabled: isDarkModeEnabled,
-                onStateChanged: onStateChanged,
+              Padding(
+                padding: EdgeInsets.only(top: 2),
+                child: DayNightSwitcherIcon(
+                  isDarkModeEnabled: isDarkModeEnabled,
+                  onStateChanged: onStateChanged,
+                ),
               ),
-              SizedBox(height: 10),
-              Text(
-                'Dark mode is ${isDarkModeEnabled ? 'enabled' : 'disabled'}.',
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Text('Dark mode is ' + (isDarkModeEnabled ? 'enabled' : 'disabled') + '.'),
               ),
             ],
           ),
