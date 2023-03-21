@@ -35,6 +35,9 @@ abstract class DayNightSwitcherBaseWidget extends StatefulWidget {
   /// The craters color.
   final Color cratersColor;
 
+  /// The outer padding.
+  final EdgeInsets padding;
+
   /// Creates a new day / night switcher base widget instance.
   const DayNightSwitcherBaseWidget({
     required bool? isDarkModeEnabled,
@@ -47,6 +50,7 @@ abstract class DayNightSwitcherBaseWidget extends StatefulWidget {
     Color? starsColor,
     Color? cloudsColor,
     Color? cratersColor,
+    EdgeInsets? padding,
   })  : this.isDarkModeEnabled = isDarkModeEnabled ?? false,
         dayBackgroundColor = dayBackgroundColor ?? const Color(0xFF3498DB),
         nightBackgroundColor = nightBackgroundColor ?? const Color(0xFF192734),
@@ -54,16 +58,14 @@ abstract class DayNightSwitcherBaseWidget extends StatefulWidget {
         moonColor = moonColor ?? const Color(0xFFFFE5B5),
         starsColor = starsColor ?? Colors.white,
         cloudsColor = cloudsColor ?? Colors.white,
-        cratersColor = cratersColor ?? const Color(0xFFE8CDA5);
+        cratersColor = cratersColor ?? const Color(0xFFE8CDA5),
+        padding = padding ?? const EdgeInsets.symmetric(vertical: 12);
 
   /// The widget height.
   double get height => 36;
 
   /// The widget width.
   double get width;
-
-  /// The outer padding.
-  EdgeInsets get padding;
 
   /// Allows to have a copy of this instance with the given parameters.
   DayNightSwitcherBaseWidget copyWith({

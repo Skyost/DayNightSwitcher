@@ -91,6 +91,7 @@ class DayNightSwitcherIcon extends DayNightSwitcherBaseWidget {
     Color? starsColor,
     Color? cloudsColor,
     Color? cratersColor,
+    EdgeInsets? padding,
   }) : super(
           isDarkModeEnabled: isDarkModeEnabled,
           onStateChanged: onStateChanged,
@@ -102,6 +103,7 @@ class DayNightSwitcherIcon extends DayNightSwitcherBaseWidget {
           starsColor: starsColor,
           cloudsColor: cloudsColor,
           cratersColor: cratersColor,
+          padding: padding
         );
 
   @override
@@ -109,9 +111,6 @@ class DayNightSwitcherIcon extends DayNightSwitcherBaseWidget {
 
   @override
   double get width => 36;
-
-  @override
-  EdgeInsets get padding => const EdgeInsets.symmetric(vertical: 12);
 
   @override
   DayNightSwitcherIcon copyWith({
@@ -125,6 +124,7 @@ class DayNightSwitcherIcon extends DayNightSwitcherBaseWidget {
     Color? starsColor,
     Color? cloudsColor,
     Color? cratersColor,
+    EdgeInsets? padding,
   }) =>
       DayNightSwitcherIcon(
         isDarkModeEnabled: isDarkModeEnabled ?? this.isDarkModeEnabled,
@@ -137,6 +137,7 @@ class DayNightSwitcherIcon extends DayNightSwitcherBaseWidget {
         starsColor: starsColor ?? this.starsColor,
         cloudsColor: cloudsColor ?? this.cloudsColor,
         cratersColor: cratersColor ?? this.cratersColor,
+        padding: padding ?? this.padding,
       );
 }
 
